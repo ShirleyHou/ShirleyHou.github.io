@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="DP, 学一次忘一次学一次忘一次… 还是记录下思路激励自己吧! Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 思路在画第i个房子时候, 假设这一格要选红房子, 总价格为">
+<meta name="description" content="DP, 3027的重点. 需要反复暴露在不同的题型下才能触类旁通的类型.这是热身的章节.DP概念入门 Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 比如说一个这样的例子:">
 <meta name="keywords" content="DP,Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leet上的热身dp问题">
+<meta property="og:title" content="DP热身问题 (Leetcode)">
 <meta property="og:url" content="http://yoursite.com/2018/12/09/Warmup_dp/index.html">
 <meta property="og:site_name" content="Shirley&#39;s blog">
-<meta property="og:description" content="DP, 学一次忘一次学一次忘一次… 还是记录下思路激励自己吧! Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 思路在画第i个房子时候, 假设这一格要选红房子, 总价格为">
+<meta property="og:description" content="DP, 3027的重点. 需要反复暴露在不同的题型下才能触类旁通的类型.这是热身的章节.DP概念入门 Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 比如说一个这样的例子:">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-09T08:00:24.949Z">
+<meta property="og:updated_time" content="2018-12-23T04:10:36.655Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leet上的热身dp问题">
-<meta name="twitter:description" content="DP, 学一次忘一次学一次忘一次… 还是记录下思路激励自己吧! Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 思路在画第i个房子时候, 假设这一格要选红房子, 总价格为">
+<meta name="twitter:title" content="DP热身问题 (Leetcode)">
+<meta name="twitter:description" content="DP, 3027的重点. 需要反复暴露在不同的题型下才能触类旁通的类型.这是热身的章节.DP概念入门 Leetcode 256 Paint HouseLeet上的入门DP问题原题链接 描述有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。要求是相邻两个房子不能一样颜色。求画到第N个房子的最低总价格. 比如说一个这样的例子:">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Leet上的热身dp问题 | Shirley's blog</title>
+  <title>DP热身问题 (Leetcode) | Shirley's blog</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leet上的热身dp问题</h1>
+          <h1 class="post-title" itemprop="name headline">DP热身问题 (Leetcode)</h1>
         
 
         <div class="post-meta">
@@ -322,10 +322,12 @@
       
 
       
-        <p>DP, 学一次忘一次学一次忘一次…</p>
-<p>还是记录下思路激励自己吧!</p>
+        <p>DP, 3027的重点.</p>
+<p>需要反复暴露在不同的题型下才能触类旁通的类型.<br>这是热身的章节.<br>DP概念入门</p>
 <h2 id="Leetcode-256-Paint-House"><a href="#Leetcode-256-Paint-House" class="headerlink" title="Leetcode 256 Paint House"></a>Leetcode 256 Paint House</h2><p>Leet上的入门DP问题<br><a href="https://leetcode.com/problems/paint-house/" target="_blank" rel="noopener">原题链接</a></p>
 <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>有一排N个房子，可以用红绿蓝三色来涂，有一个COST[N][0:2]的信息分别表示在画第N个房子时红绿蓝分别的价格。<br>要求是相邻两个房子不能一样颜色。<br>求画到第N个房子的最低总价格.</p>
+<p>比如说一个这样的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: [[17,2,17],[16,16,5],[14,3,19]]</span><br><span class="line">    价格:(红0蓝0绿0)(红1蓝1绿1)(红2蓝2绿2)</span><br><span class="line"></span><br><span class="line">Output: 10</span><br><span class="line">Explanation: 选择这样的涂法: 第0个房子是蓝色, 第1个房子绿色, 第2个房子蓝色.</span><br><span class="line">             这样的总价格是 2 + 5 + 3 = 10. 是所有可能性里最小的.</span><br></pre></td></tr></table></figure>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>在画第i个房子时候, 假设这一格要选红房子, 总价格为 <code>min[前一格(i-1)是绿格子的总价格，前一格(i-1)是蓝房子的总价格] + 这一格红房子的价格</code><br>那到了第N个房子, 最低价格就是红蓝绿里最低那个了.</p>
 <p>需要开 OPT[3][N] 来存RGB分别在画第N个房子时的最低价格</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">updateOPT</span><span class="params">(self, OPT, i, costs)</span>:</span></span><br><span class="line">        <span class="comment">#if color = 'r':</span></span><br><span class="line">        OPT[<span class="number">0</span>][i]=min(OPT[<span class="number">1</span>][i<span class="number">-1</span>],OPT[<span class="number">2</span>][i<span class="number">-1</span>])+costs[i][<span class="number">0</span>]</span><br><span class="line">        <span class="comment">#elif color = 'b':</span></span><br><span class="line">        OPT[<span class="number">1</span>][i]=min(OPT[<span class="number">0</span>][i<span class="number">-1</span>],OPT[<span class="number">2</span>][i<span class="number">-1</span>])+costs[i][<span class="number">1</span>]</span><br><span class="line">        <span class="comment">#elif color = 'g':</span></span><br><span class="line">        OPT[<span class="number">2</span>][i]=min(OPT[<span class="number">0</span>][i<span class="number">-1</span>],OPT[<span class="number">1</span>][i<span class="number">-1</span>])+costs[i][<span class="number">2</span>]</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minCost</span><span class="params">(self, costs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type costs: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment">#No two houses are painted with the same color</span></span><br><span class="line">        <span class="comment">#target: total price is lowest</span></span><br><span class="line">        </span><br><span class="line">        N = len(costs)</span><br><span class="line">        <span class="keyword">if</span> N==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> len(costs[<span class="number">0</span>])==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        OPT= [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(N)] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">        OPT[<span class="number">0</span>][<span class="number">0</span>]=costs[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        OPT[<span class="number">1</span>][<span class="number">0</span>]=costs[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">        OPT[<span class="number">2</span>][<span class="number">0</span>]=costs[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,N):</span><br><span class="line">            self.updateOPT(OPT, i, costs)</span><br><span class="line">        <span class="keyword">return</span> min(OPT[<span class="number">0</span>][N<span class="number">-1</span>], OPT[<span class="number">1</span>][N<span class="number">-1</span>], OPT[<span class="number">2</span>][N<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
@@ -471,7 +473,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

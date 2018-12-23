@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DP,Leetcode,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DP, 3027的重点. 入门章节  学完并熟练掌握INFO1105/数据结构的同学可以跳过这篇. Fibonacci我们回忆一下INFO1110里讲过的递归寻找斐波那契数列的问题 斐波那契数列的递归定义如下: 12345678910F(0) = 0F(1) = 1F(n) = F(n-1)+F(n-2)用文字来说，就是费波那契数列由0和1开始，之后的费波那契系数就是由之前的两数相加而得出。从">
+<meta name="keywords" content="DP,Leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DP热身问题 (Leetcode)">
+<meta property="og:url" content="http://yoursite.com/2018/12/23/Intro_dp/index.html">
+<meta property="og:site_name" content="Shirley&#39;s blog">
+<meta property="og:description" content="DP, 3027的重点. 入门章节  学完并熟练掌握INFO1105/数据结构的同学可以跳过这篇. Fibonacci我们回忆一下INFO1110里讲过的递归寻找斐波那契数列的问题 斐波那契数列的递归定义如下: 12345678910F(0) = 0F(1) = 1F(n) = F(n-1)+F(n-2)用文字来说，就是费波那契数列由0和1开始，之后的费波那契系数就是由之前的两数相加而得出。从">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-23T04:27:18.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DP热身问题 (Leetcode)">
+<meta name="twitter:description" content="DP, 3027的重点. 入门章节  学完并熟练掌握INFO1105/数据结构的同学可以跳过这篇. Fibonacci我们回忆一下INFO1110里讲过的递归寻找斐波那契数列的问题 斐波那契数列的递归定义如下: 12345678910F(0) = 0F(1) = 1F(n) = F(n-1)+F(n-2)用文字来说，就是费波那契数列由0和1开始，之后的费波那契系数就是由之前的两数相加而得出。从">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/23/Intro_dp/">
+
+
+
+
+
+  <title>DP热身问题 (Leetcode) | Shirley's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shirley's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">代码小白的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/Intro_dp/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shirley Hou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shirley's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DP热身问题 (Leetcode)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-23T13:07:40+11:00">
+                2018-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/刷题/" itemprop="url" rel="index">
+                    <span itemprop="name">刷题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>DP, 3027的重点.</p>
+<p>入门章节 </p>
+<p><strong>学完并熟练掌握INFO1105/数据结构的同学可以跳过这篇.</strong></p>
+<h2 id="Fibonacci"><a href="#Fibonacci" class="headerlink" title="Fibonacci"></a>Fibonacci</h2><p>我们回忆一下INFO1110里讲过的递归寻找斐波那契数列的问题</p>
+<p>斐波那契数列的递归定义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">F(0) = 0</span><br><span class="line">F(1) = 1</span><br><span class="line">F(n) = F(n-1)+F(n-2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">用文字来说，就是费波那契数列由0和1开始，之后的费波那契系数就是由之前的两数相加而得出。</span><br><span class="line">从第0项开始的费波那契系数是：</span><br><span class="line"></span><br><span class="line">0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233…</span><br></pre></td></tr></table></figure>
+<p>如果用递归的方法来写找第N个斐波那契数, 非常简单直接<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n==<span class="number">0</span> <span class="keyword">or</span> n==<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n<span class="number">-1</span>) + fibonacci(n<span class="number">-2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>请自己试一试, 在你的电脑上找<code>fibonacci(50)</code> 大概需要多久?</p>
+<hr>
+<p>我猜基本上你没耐心等到50 :D</p>
+<p>有没有更快的办法呢?</p>
+<p>首先我们来看一看为什么这个fibonaaci要跑这么久.</p>
+<p>举一个简单的例子, 我们要算 f(5), 我们数一下有几次操作.<br>对于递归内部, 假设每次我们都先展开计算左边那半部分.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">f(5) = f(4) + f(3)</span><br><span class="line">f(4) = f(3) + f(2)</span><br><span class="line">f(3) = f(2) + f(1)</span><br><span class="line">f(2) = f(1) + f(0)</span><br><span class="line">f(1) = 1 return</span><br><span class="line">f(0) = 0 return</span><br><span class="line">f(2) = 1 + 0 = 2 return</span><br><span class="line">f(3) = 2 + f(1)</span><br><span class="line">f(1) = 1 return</span><br><span class="line">f(3) = 2 + 1 = 3 return</span><br><span class="line">f(4) = 3 + f(2)</span><br><span class="line">f(2) = f(1) + f(0)</span><br><span class="line">f(1) = 1 return</span><br><span class="line">f(0) = 0 return</span><br><span class="line">f(2) = 1 + 0 = 2 return</span><br><span class="line">f(4) = 3 + 2 = 5 return</span><br><span class="line">f(5) = 5 + f(3)</span><br><span class="line">f(3) = f(2) + f(1)</span><br><span class="line">f(2) = f(1) + f(0)</span><br><span class="line">f(1) = 1 return</span><br><span class="line">f(0) = 0 return</span><br><span class="line">f(2) = 1 + 0 = 2 return</span><br><span class="line">f(3) = 2 + f(1)</span><br><span class="line">f(1) = 1 return</span><br><span class="line">f(3) = 2 + 1 = 3 return</span><br><span class="line">f(5) = 5 + 3 = 8 return</span><br></pre></td></tr></table></figure></p>
+<p>有没有发现我们中间重复计算了很多次f(3), f(2), f(1), f(0)的部分呢?</p>
+<p>实际上, 由于我们求过了f(3), f(2), f(1), f(0), 却没有把这些值保存下来, 这导致了递归版本的斐波那契数列的运行时间是指数级别的. </p>
+<p>为什么是O(2^n)呢? 很显然, f(n) = f(n-1) + f(n-2). 如果计算f(n+1) = f(n) + f(n-1). 则f(n), 包括f(n-1)的部分都要被重复计算. 精确的来说, 斐波那契数列的复杂度是 1.618^n, 黄金分割比值.</p>
+<p>下面我们来介绍一下动态规划思想.</p>
+<p>首先, 它所做的是”把算过的东西存起来”.</p>
+<p>但这门课中最重要的是, 利用它来拆分复杂的数学问题.</p>
+<ol>
+<li><p>首先，我们要找到某个子问题的最优解，然后在它的帮助下，找到下一个状态的最优解。</p>
+</li>
+<li><p>通常许多子问题非常相似，为此动态规划法试图<strong>仅仅解决每个子问题一次</strong>，从而减少计算量. 一旦某个给定子问题的解已经算出，则将其记忆化<strong>存储</strong>，以便下次需要同一个子问题解之时<strong>直接查表</strong>.</p>
+</li>
+</ol>
+<p>目前, 我们至少可以做到”把算过的东西存起来”.</p>
+<p>如何存? 怎么查表? 不妨自己试试.(下面也有答案)</p>
+<h2 id="台阶问题"><a href="#台阶问题" class="headerlink" title="台阶问题"></a>台阶问题</h2><p>理解了斐波那契问题之后, 来试一试非常相似的一道台阶问题吧!</p>
+<h2 id="Leetcode-70-Climbing-Stairs"><a href="#Leetcode-70-Climbing-Stairs" class="headerlink" title="Leetcode 70 Climbing Stairs"></a>Leetcode 70 Climbing Stairs</h2><p><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">原题链接</a></p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>你有一个N个台阶的梯子, 你可以一次走两格或者一次走一格.<br>一共有几种走法?</p>
+<p>比如说一个这样的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: There are three ways to climb to the top.</span><br><span class="line">1. 1 step + 1 step + 1 step</span><br><span class="line">2. 1 step + 2 steps</span><br><span class="line">3. 2 steps + 1 step</span><br></pre></td></tr></table></figure>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>没有头绪的时候, 首先思考一下base case.</p>
+<p>如果我们一个台阶都没有? 那就没有走法了. return 0.<br>我们如果只有一个台阶, 那就只能有一种走法, 走一格.<br>我们如果只有2个台阶, 那就只能有2种走法, 两次一格, 或者, 一次2格.</p>
+<p>如果我们有三个台阶呢?<br>不妨想一想, 我们是如何到台阶3的? </p>
+<p>我们既然一次只能走两格或者一格, 那说明上一步我们要么在台阶1 要么在台阶2.</p>
+<p>这样是不是就豁然开朗了一些?<br>我到台阶3的走法, 是我到台阶2的走法, 与台阶1的走法之和.</p>
+<p>这个问题的子问题与递推关系式, 恰好就和斐波那契数列一样:<br>f(n) = f(n-1) + f(n-2).</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> n&lt;=<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> n</span><br><span class="line">        p=[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>)]</span><br><span class="line">        p[<span class="number">0</span>]=<span class="number">0</span></span><br><span class="line">        p[<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">        p[<span class="number">2</span>]=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>,n+<span class="number">1</span>):</span><br><span class="line">                p[i] = p[i<span class="number">-1</span>]+p[i<span class="number">-2</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> p[n]</span><br></pre></td></tr></table></figure>
+<h3 id="动态规划所适用的情况"><a href="#动态规划所适用的情况" class="headerlink" title="动态规划所适用的情况"></a>动态规划所适用的情况</h3><p>(摘自维基百科)</p>
+<ol>
+<li><strong>最优子结构</strong>. 如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质（即满足最优化原理）。最优子结构性质为动态规划算法解决问题提供了重要线索。</li>
+</ol>
+<p>比如, 在爬台阶的问题里, 可以这么理解:<br>如果我想知道第N个斐波那契数, 我必然会求解第N-1和第N-2个斐波那契数.<br>不会存在我求第N个的时候, 所使用的N-2与N-1并不等同于N-2与N-1的最优解.</p>
+<ol start="2">
+<li><strong>无后效性</strong>. 即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响。</li>
+</ol>
+<p>结合上一条一起理解, 就是所有的子问题都可以安全的用相同的递推公式.</p>
+<ol start="3">
+<li><strong>子问题重叠性质</strong>. 子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只计算一次，然后将其计算结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率.</li>
+</ol>
+<p>这就是”把算过的部分存起来”的概念.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DP/" rel="tag"># DP</a>
+          
+            <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/16/dp_best_time_stock_series/" rel="next" title="Best time to buy and sell stock 系列">
+                <i class="fa fa-chevron-left"></i> Best time to buy and sell stock 系列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shirley Hou</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fibonacci"><span class="nav-number">1.</span> <span class="nav-text">Fibonacci</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#台阶问题"><span class="nav-number">2.</span> <span class="nav-text">台阶问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-70-Climbing-Stairs"><span class="nav-number">3.</span> <span class="nav-text">Leetcode 70 Climbing Stairs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划所适用的情况"><span class="nav-number">3.4.</span> <span class="nav-text">动态规划所适用的情况</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shirley Hou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
