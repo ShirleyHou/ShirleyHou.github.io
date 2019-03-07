@@ -229,6 +229,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/2123-week2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shirley Hou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shirley's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/07/2123-week2/" itemprop="url">Graph Intro</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T11:41:44+11:00">
+                2019-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/USYD/" itemprop="url" rel="index">
+                    <span itemprop="name">USYD</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Week2-List-and-Linked-List-Stack-and-Queue"><a href="#Week2-List-and-Linked-List-Stack-and-Queue" class="headerlink" title="Week2 List and Linked List, Stack and Queue"></a>Week2 List and Linked List, Stack and Queue</h2><p>这周的知识点</p>
+<p>了解以下数据结构的实现, time and space constraint</p>
+<ul>
+<li>array implementation of a list</li>
+<li>singly and doubly linked list</li>
+<li>doubly linked list Stack and Queue</li>
+<li><strong>adv</strong> singly linked list stack and queue</li>
+</ul>
+<h3 id="python里的run-time和function-call测试方法"><a href="#python里的run-time和function-call测试方法" class="headerlink" title="python里的run time和function call测试方法"></a>python里的run time和function call测试方法</h3><h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><h3 id="Q3-Given-a-singly-linked-list-traverse-the-elements-of-the-list-in-reverse-order"><a href="#Q3-Given-a-singly-linked-list-traverse-the-elements-of-the-list-in-reverse-order" class="headerlink" title="Q3 : Given a singly linked list, traverse the elements of the list in reverse order."></a>Q3 : Given a singly linked list, traverse the elements of the list in reverse order.</h3><ul>
+<li>Design an algorithm that uses O(1) extra space. </li>
+</ul>
+<p>首先我们需要了解题意, 是否真的要把linked list反过来.<br>比如 1-&gt;2-&gt;3 经过处理后变成 3-&gt;2-&gt;1.<br>如果只能使用O(1)的空间, 那么我们除了已经给的list的空间没有更多的地方来存储信息, 那么免不了对原本linkedlist的改动, 也就是<br>改变node之间next的指向.</p>
+<p>O(1)的方法 有iterative和recursive两种解法, 推荐了解iterasive的写法.</p>
+<p>在这之前, 先写一个helper function <code>print_linkedlist(head)</code>来帮忙检验. 我们默认<code>print_linkedlist</code>是时间O(n)空间O(1)的.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_linkedlist</span><span class="params">(head)</span>:</span></span><br><span class="line">    node = head</span><br><span class="line">    <span class="keyword">while</span>(node):</span><br><span class="line">        print(node.value) <span class="comment">#traversed</span></span><br><span class="line">        node = node.next</span><br></pre></td></tr></table></figure>
+<p><strong>Iterasive method</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    current = head</span><br><span class="line">    prev = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current):</span><br><span class="line">        </span><br><span class="line">        curr_next = current.next <span class="comment">#先存next, 下一步要走的点</span></span><br><span class="line">        current.next = prev <span class="comment"># **改变当前点的next位置. 反转的一步!**</span></span><br><span class="line">        prev = current <span class="comment">#更新prev称为当前点. </span></span><br><span class="line">        current = curr_next <span class="comment">#更新当前点为next, 下一步要走的点.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#理解视频: https://www.youtube.com/watch?v=sYcOK51hl-A</span></span><br><span class="line"></span><br><span class="line">    old_last_node = prev</span><br><span class="line">    <span class="keyword">return</span> old_last_node</span><br></pre></td></tr></table></figure>
+<p><strong>Recursive method</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> head==<span class="keyword">None</span> <span class="keyword">or</span> head.next==<span class="keyword">None</span>:</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    old_second = self.reverseList(head.next)</span><br><span class="line">    head.next.next = head</span><br><span class="line">    head.next=<span class="keyword">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> old_second</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Design an algorithm that uses O(sqrt(n)) extra space. </li>
+</ul>
+<p>因为题目要求仅仅是reversely traverse, 有多余位置存储信息的话, 我们就可以事实上不改变node之间的联系了.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse_sqrt_n</span><span class="params">(head)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了方便描述 记 K = sqrt(n)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># # -------第一步: 找到list的长度------</span></span><br><span class="line">    <span class="comment"># 假设我们不知道这个list有多长, 我们首先需要获取长度信息.</span></span><br><span class="line">    n=<span class="number">0</span></span><br><span class="line">    node=head</span><br><span class="line">    <span class="keyword">while</span> node:</span><br><span class="line">        n+=<span class="number">1</span></span><br><span class="line">        node=node.next </span><br><span class="line">    <span class="comment">#to know how long is our linked list, time O(n), space O(1)</span></span><br><span class="line">    k=int(n**<span class="number">.5</span>)+<span class="number">1</span>  <span class="comment">#确定sqrt(n)的大小</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 到这一步为止 time用了n, space用了1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------第二步: 存储每第K个node位置-------</span></span><br><span class="line">    <span class="comment"># 存储每第sqrt(k)个node</span></span><br><span class="line">    <span class="comment"># 一共有 k/sqrt(k)=sqrt(k)次操作, 存好了以后会使用sqrt(k)space.</span></span><br><span class="line"></span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    node=self</span><br><span class="line">    lsa=[node]</span><br><span class="line">    node_stored_position_sequence=[] <span class="comment">#只是为了分析而用</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> node:</span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> i==k: </span><br><span class="line">            lsa.append(node)</span><br><span class="line">            node_stored_position_sequence.append(count) <span class="comment">#只是为了分析而用</span></span><br><span class="line">            i=<span class="number">0</span></span><br><span class="line">        last_node=node</span><br><span class="line">        node=node.next</span><br><span class="line">    <span class="keyword">if</span> i&gt;<span class="number">0</span>:</span><br><span class="line">        lsa.append(last_node)</span><br><span class="line">    <span class="comment"># print(node_stored_position_sequence)</span></span><br><span class="line">    <span class="comment"># 如果n=100的话,这里node_stored_position_sequence应该存了 [11, 22, 33, 44, 55, 66, 77, 88, 99]个node.</span></span><br><span class="line">    <span class="comment"># 到这一步为止 time用了2n, space用了K</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># -------第三步: 反向打印------</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我们已经存了每第sqrt(n)个node的位置, 那么要如何反过来呢?</span></span><br><span class="line">    <span class="comment"># 每一次我们pop一个node, 并且记录上一次被pop的那个.</span></span><br><span class="line">    <span class="comment"># 处理最后一个node就是:顺序 node = node.next地把结果存起来,存到之前存的那个为止</span></span><br><span class="line">    <span class="comment"># 比如我们存22号node, 就一路 node = node.next 的把结果保存到一个list里, 直到遇到33号为止</span></span><br><span class="line">    <span class="comment"># 存完[22, 23, 24... 32]之后, 我们反着打印. 反着打印花的时间是K.</span></span><br><span class="line">    <span class="comment"># 这样我们操作K次, 每次使用K的空间.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 一共space cost是K, time cost则是n+n + K*K = 3n =  O(n).</span></span><br><span class="line"></span><br><span class="line">    start_node=lsa.pop()</span><br><span class="line">    print(start_node.value)</span><br><span class="line">    <span class="keyword">while</span> lsa: <span class="comment"># this happens K times. K = sqrt(K)</span></span><br><span class="line">        last_printed_node=start_node</span><br><span class="line">        start_node=lsa.pop()</span><br><span class="line">        node=start_node</span><br><span class="line">        ssa=[]</span><br><span class="line">        <span class="keyword">while</span> node!=last_printed_node:</span><br><span class="line">            ssa.append(node)</span><br><span class="line">            node=node.next</span><br><span class="line"></span><br><span class="line">        <span class="comment"># [print(v.value, end=" ") for v in ssa] </span></span><br><span class="line">        <span class="comment"># 如果打印的话, 这一步应该打印 sqrt(n) 次, 每一次打印一个 sqrt(n)长度的数组</span></span><br><span class="line">        ssa.reverse()</span><br><span class="line">        <span class="keyword">for</span> node <span class="keyword">in</span> ssa:</span><br><span class="line">            print(node.value)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Q5-Consider-the-problem-of-given-an-integer-n-generating-all-possible-permutations-of-1-2-3…n"><a href="#Q5-Consider-the-problem-of-given-an-integer-n-generating-all-possible-permutations-of-1-2-3…n" class="headerlink" title="Q5 : Consider the problem of given an integer n, generating all possible permutations of {1,2,3…n}"></a>Q5 : Consider the problem of given an integer n, generating all possible permutations of {1,2,3…n}</h3><ul>
+<li>了解这道题里的复杂度分析是最重要的一点.</li>
+</ul>
+<p>举个例子<br>permute(3) = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]<br>显然 如果已经知道了permute(2), 那permute(3)则只需要在每一个permute(2)的任意一位置加入3这个数字 ,<br>[[1, 2], [2, 1]]<br>[[1,2,3], [1,3,2], [3,1,2]<br>[[2,1,3], [2,3,1], [3,2,1]].</p>
+<p>所以, 时间复杂度由T(n) = n * T(n-1) + O(1) , 可以推出时间复杂度是 O(N!)<br>空间: O(N!) 因为要记录排列组合本身就需要O(N!)这么大的空间</p>
+<ul>
+<li>recursive method(推荐)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(n)</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    s = []</span><br><span class="line">    v = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>)] </span><br><span class="line">    <span class="comment"># 我们不用index 0的位置, 因为题目要求permute从1到n</span></span><br><span class="line">    <span class="comment"># 1 based index</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(l,s,v,index)</span>:</span></span><br><span class="line">        <span class="comment">#start is for the beginning position</span></span><br><span class="line">        <span class="keyword">if</span> index==n+<span class="number">1</span>:</span><br><span class="line">            l.append(s[:]) <span class="comment">#记录当前组合</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> v[i]==<span class="number">0</span>:</span><br><span class="line">                    s.append(i)</span><br><span class="line">                    v[i]=<span class="number">1</span></span><br><span class="line">                    dfs(l,s,v,index+<span class="number">1</span>)</span><br><span class="line">                    v[i]=<span class="number">0</span></span><br><span class="line">                    s.pop() <span class="comment">#回溯操作</span></span><br><span class="line">    dfs(l,s,v,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line">print(permute(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>iterative method(Heap’s algorithm)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute_iterative_heap_s_algorithm</span><span class="params">(n)</span>:</span></span><br><span class="line">    </span><br><span class="line">    c = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line">    A = [i+<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    res= [A[:]]</span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        <span class="keyword">if</span>  c[i] &lt; i:</span><br><span class="line">            <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">                A[<span class="number">0</span>],A[i] = A[i], A[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                A[c[i]], A[i] = A[i],A[c[i]]</span><br><span class="line">            res.append(A[:])</span><br><span class="line">            c[i] += <span class="number">1</span></span><br><span class="line">            i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c[i] = <span class="number">0</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/3027-week2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -283,8 +459,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/刷题/" itemprop="url" rel="index">
-                    <span itemprop="name">刷题</span>
+                  <a href="/categories/USYD/" itemprop="url" rel="index">
+                    <span itemprop="name">USYD</span>
                   </a>
                 </span>
 
@@ -408,31 +584,38 @@
 2. 从一个vertex可以到达的所有其他点
 3. 需要由近及远的一层层的traverse一个图的问题. 比如获取从当前vertex到其他vertex需要走几步.
 </code></pre><p><strong>BFS模板</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">    visited.add(current_vertex) <span class="comment">#这一步对每一个vertex会发生一次, 一共会发生N次</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line"></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: <span class="comment">#这个循环会探查从这个vertex出去的所有edge, 全局来看一共会发生M次.</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set(queue)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#这一步对每一个vertex会发生一次, 一共会发生N次</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line"></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: <span class="comment">#这个循环会探查从这个vertex出去的所有edge, 全局来看一共会发生M次.</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br><span class="line">            visited.add(current_vertex) <span class="comment">#加入已visited</span></span><br></pre></td></tr></table></figure>
 <p>同时,这个模板解决的问题是”Find all nodes reachable from S”. 结束这个模板之后的visited set将会含有所有从s可以到达的vertex</p>
 <ul>
 <li>无权重的shorest path问题</li>
 </ul>
 <p>解决从s到t最短需要经过几条edge的问题, (不需要记录路径), 对bfs稍作改动即可.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> V:</span><br><span class="line">    distance[v] = <span class="number">0</span></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set()</span><br><span class="line">distance = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">    visited.add(current_vertex) <span class="comment">#这一步对每一个vertex会发生一次, 一共会发生N次</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line"></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: <span class="comment">#这个循环会探查从这个vertex出去的所有edge, 全局来看一共会发生M次.</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br><span class="line">            distance[n] = distance[current_vertex]+<span class="number">1</span> </span><br><span class="line">            <span class="comment"># neighbour与起点的距离, 比current vertex与起点的距离多1 因为我们先遇到了current vertex</span></span><br><span class="line">        <span class="keyword">if</span> n==end:</span><br><span class="line">            <span class="keyword">return</span> distance[end]</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> float(<span class="string">'inf'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> V:</span><br><span class="line">    distance[v] = <span class="number">0</span></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set([start])</span><br><span class="line">distance = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">     <span class="comment">#这一步对每一个vertex会发生一次, 一共会发生N次</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line"></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: <span class="comment">#这个循环会探查从这个vertex出去的所有edge, 全局来看一共会发生M次.</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br><span class="line">            distance[n] = distance[current_vertex]+<span class="number">1</span> </span><br><span class="line">            <span class="comment"># neighbour与起点的距离, 比current vertex与起点的距离多1 因为我们先遇到了current vertex</span></span><br><span class="line">            visited.add(n)</span><br><span class="line">        <span class="keyword">if</span> n==end:</span><br><span class="line">            <span class="keyword">return</span> distance[end]</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> float(<span class="string">'inf'</span>)</span><br></pre></td></tr></table></figure>
 <p>以上的模板只能告诉大家最短路是多长.</p>
 <p>如果需要记录从S到T的路径的话, 我们需要另外的空间来存每一个vertex的前置位, 这样就可以在发现终点之后根据前置位的信息, 一路trace回起点.</p>
-<p>注意前置位也只保留第一次遇到的情况是最短的. 用dict写的话注意不要被override.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bfs_return_path</span><span class="params">(start, end, Graph)</span>:</span></span><br><span class="line">    queue = [start]</span><br><span class="line">    visited = set()</span><br><span class="line"></span><br><span class="line">    prev = &#123;start:<span class="keyword">None</span>&#125; <span class="comment">#我们设start的前置位是空的</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_path</span><span class="params">(end, prev)</span>:</span></span><br><span class="line">        path = []</span><br><span class="line">        <span class="keyword">while</span>(end!=<span class="keyword">None</span>):</span><br><span class="line">            path.append(end)</span><br><span class="line">            end = prev[end]</span><br><span class="line"></span><br><span class="line">        path.reverse()</span><br><span class="line">        <span class="keyword">return</span> path</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(queue): </span><br><span class="line">        current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">        visited.add(current_vertex) </span><br><span class="line">        </span><br><span class="line">        neighbours = Graph[current_vertex] </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: </span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: </span><br><span class="line">                queue.append(n)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> prev:</span><br><span class="line">                    prev[n] = current_vertex </span><br><span class="line">                <span class="comment">#这一步来记录前置位. 只记录第一次发现这个neighbour的情况.</span></span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> n==end:</span><br><span class="line">                print(prev)</span><br><span class="line">                <span class="keyword">return</span>(get_path(end, prev))</span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [] <span class="comment"># 找不到终点, 返回空</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bfs_return_path</span><span class="params">(start, end, Graph)</span>:</span></span><br><span class="line">    queue = [start]</span><br><span class="line">    visited = set([start])</span><br><span class="line">    prev = &#123;start:<span class="keyword">None</span>&#125; <span class="comment">#我们设start的前置位是空的</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_path</span><span class="params">(end, prev)</span>:</span></span><br><span class="line">        path = []</span><br><span class="line">        <span class="keyword">while</span>(end!=<span class="keyword">None</span>):</span><br><span class="line">            path.append(end)</span><br><span class="line">            end = prev[end]</span><br><span class="line"></span><br><span class="line">        path.reverse()</span><br><span class="line">        <span class="keyword">return</span> path</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(queue): </span><br><span class="line">        current_vertex = queue.pop(<span class="number">0</span>)</span><br><span class="line">        neighbours = Graph[current_vertex] </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> neighbours: </span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: </span><br><span class="line">                queue.append(n)</span><br><span class="line">                prev[n] = current_vertex </span><br><span class="line">                <span class="comment">#这一步来记录前置位.</span></span><br><span class="line">                <span class="comment">#neighbour的前置位是current v. 因为我们先遇到current v,再遇到neighbour</span></span><br><span class="line">                visited.add(n) </span><br><span class="line">            <span class="keyword">if</span> n==end:</span><br><span class="line">                print(prev)</span><br><span class="line">                <span class="keyword">return</span>(get_path(end, prev))</span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [] <span class="comment"># 找不到终点, 返回空</span></span><br></pre></td></tr></table></figure>
 <p></p>
 <h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><p>DFS适合拿来解决的问题包括:</p>
 <pre><code>1. 从一个vertex可以到达的所有其他点
 2. 搜索, Backtracking类型的问题, 比如print all path between S to T.
 3. 图是否有cycle
 </code></pre><p><strong>DFS递归模板</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">visited = set()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(current_vertex, graph, visited)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node <span class="keyword">in</span> visited: <span class="comment">#检查是否已经visit过</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># do something to visit</span></span><br><span class="line">    visited.add(current_vertex)</span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours:</span><br><span class="line">        dfs(n, graph, visited)</span><br></pre></td></tr></table></figure></p>
-<p><strong>DFS非递归模板</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop() </span><br><span class="line">    <span class="comment">#注意这里用的是pop() 而非pop(0). 与BFS模板唯一的区别在于, DFS优先探索栈尾.</span></span><br><span class="line"></span><br><span class="line">    visited.add(current_vertex)</span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours:</span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li><strong>Run time analysis</strong><ul>
+<li>Level Order Traversal</li>
+<li></li>
+</ul>
+<p><strong>DFS非递归模板</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume Graph is an adjacency list implemented by dictionary &amp; list.</span></span><br><span class="line">V = Graph.keys()</span><br><span class="line"></span><br><span class="line"><span class="comment"># start from node 0.</span></span><br><span class="line">start = V[<span class="number">0</span>]</span><br><span class="line">queue = [start]</span><br><span class="line">visited = set()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(queue): </span><br><span class="line">    current_vertex = queue.pop() </span><br><span class="line">    <span class="comment">#注意这里用的是pop() 而非pop(0). 与BFS模板唯一的区别在于, DFS优先探索栈尾.</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># do something to current node</span></span><br><span class="line">    neighbours = Graph[current_vertex] <span class="comment">#neighbours of current vertex </span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbours:</span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> visited: <span class="comment">#注意检查是否已经visit过, 否则会死循环</span></span><br><span class="line">            queue.append(n)</span><br><span class="line">            visited.add(current_vertex)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><strong>Run time analysis</strong></p>
+<ul>
 <li>对于adjacency list的实现方法, BFS和DFS都需要O(m+n)的时间.</li>
 </ul>
 </li>
+<li><p>DFS和BFS的优势和劣势</p>
+</li>
 </ul>
-<p>Find connected components<br>Minimum Spanning Tree<br>Shortest Distance: Dijkstra, Floyd-Warshall</p>
+<p>Find connected components<br>Minimum Spanning Tree</p>
+<p>Shortest Distance: Dijkstra, Floyd-Warshall</p>
 
           
         
@@ -1220,7 +1403,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1231,7 +1414,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1242,7 +1425,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
