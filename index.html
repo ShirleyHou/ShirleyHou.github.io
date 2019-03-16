@@ -229,6 +229,283 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/3027-week3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shirley Hou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shirley's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/16/3027-week3/" itemprop="url">Greedy Intro</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-16T10:31:56+11:00">
+                2019-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/USYD/" itemprop="url" rel="index">
+                    <span itemprop="name">USYD</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/USYD/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>CLRS: 算法导论</p>
+<h1 id="Week3-贪心"><a href="#Week3-贪心" class="headerlink" title="Week3 贪心"></a>Week3 贪心</h1><p><br>定义: A greedy algorithm <strong>always makes the choice that looks best at the moment.</strong> That is, it makes a locally optimal choice in the hope that this choice will lead to a globally optimal solution.</p>
+<p>举一个pramp上遇到的经典例子. 如果有一颗普通的二叉树, 每一条路径都有一个正的cost, 求从root到leaf最小的cost是多少.<br>比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">             R                  ----Root</span><br><span class="line">        (2)     (1)     </span><br><span class="line">      r.l        R.r            ----Children</span><br><span class="line">   (3)   (1)    (0)   null    </span><br><span class="line">R.l.l   R.l.r   R.r.l           ----GrandChildren</span><br></pre></td></tr></table></figure></p>
+<p>对于这道题, 我们从leaf开始返回自己的cost, 在每一个parent层(有点像商科里概率树里的decision vertex)做决策: 目前累积下来的left child tree和right child tree哪个更小就选哪个加上自己继续往上传递. 这样每一层选下来的结果(locally)在root这一层(globally也一定是最小的. </p>
+<p>学校lecture里cover 4个经典问题.</p>
+<ul>
+<li>Interval Scheduling Problem</li>
+<li>Minimizing Lateness</li>
+<li>Minimum Spanning Tree</li>
+<li>Shortest Path (Dijkstra)</li>
+</ul>
+<h2 id="证明Greedy的三种方法"><a href="#证明Greedy的三种方法" class="headerlink" title="证明Greedy的三种方法"></a>证明Greedy的三种方法</h2><ul>
+<li>Exchange Argument (最好, 推荐在asm1里用)</li>
+</ul>
+<p>Transform any solution to the one found by the greedy algorithm without hurting its quality.</p>
+<ul>
+<li>Greedy algorithm stays ahead:</li>
+</ul>
+<p>Show after each step of the greedy algorithm its solution is at least as good as other algorithms.</p>
+<ul>
+<li>Structural (推荐在asm1里用)</li>
+</ul>
+<p>Discover a bound asserting that every possible solution must have a certain value and your algorithm always achieves this bound.</p>
+<h2 id="Interval-Scheduling-Proble-Activity-Selection-Problem"><a href="#Interval-Scheduling-Proble-Activity-Selection-Problem" class="headerlink" title="Interval Scheduling Proble/(Activity Selection Problem)"></a>Interval Scheduling Proble/(Activity Selection Problem)</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h3><p>有一组活动 S = {a1, a2, .. an}. 每一个活动有[s, f)两个时间代表开始和结束.<br>如果有两个活动, a_i和a_j, 它们compatible的话, 就说明它们开始和结束的时间没有任何的重叠 [s_i, f_i) does not overlap with [s_j, f_j). 如果两个活动重叠的话我们就不能都选. 我们希望给定一段时间, 能够从这一堆S中选择数量最多的活动.</p>
+<h3 id="一句话记住怎么做"><a href="#一句话记住怎么做" class="headerlink" title="一句话记住怎么做:"></a>一句话记住怎么做:</h3><p>Keep choosing the activity that finishes first, keep only the activities compatible with this activity, and repeat until no activities remain.</p>
+<h3 id="如果要证明"><a href="#如果要证明" class="headerlink" title="如果要证明..:"></a>如果要证明..:</h3><ul>
+<li>定义</li>
+</ul>
+<p>对任何subproblem S_k, let a_m be the earliest finish time one in S_k, then a_m is included in the optimal solution for S_k.</p>
+<ul>
+<li>什么是subproblem? </li>
+</ul>
+<p>subproblem就是做数学归纳法里必须的一步, 如果大家还记得, 我们一般先证明1, 再证明k, 推到k+1. 可以理解为这个第k步.</p>
+<p>在greedy里, 如果subproblem(第k步)有一个最优解, 那这个最优解也一定包含在k+1步里.</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明:"></a>证明:</h3><p>假设S这个subproblem S_k 有两个解A_k, A_k’. 然后我们的活动集S里里有两个活动, a_j和a_m. 但是a_m是结束时间最早的那个, 有 f_m &lt;= f_j.<br>我们设 A_k 里有a_j但是没有a_m, 也就是不包括结束时间最早的那个.</p>
+<p>另外, 我们使得(我们要证明的真正的最优解)A_k’ = A_k - a_j + a_m 作为一个含有a_m但不含有a_j的解. </p>
+<p>—梳理一下, A_k和A_k’目前唯一的区别就是, A_k里有a_j没有a_m,  A_k没有<br>我们要证明A_k’不比A_k差, 甚至要更好. 以此证明我们一定要包含a_m.</p>
+<p>首先, A_k’ = A_k- a_j + a_m 一增一减, A_k’的大小还是和A_k的大小一样. <br>因为为了符合题意, 最优解里的活动已经不会overlap each other, 再加上f_m &lt; f_j, 所以所以这样换下来, 还是不会有overlap的情况, 并不会对a_m后面的事件产生影响.</p>
+<p>既然用a_m换掉a_j并不会影响结果的大小, 说明我们可以确定a_m一定会在最优解里了.</p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sort S by finish time. </span><br><span class="line"></span><br><span class="line">n = S.length</span><br><span class="line">A = &#123;S[0]&#125;</span><br><span class="line">k = 1</span><br><span class="line">for m = 2 to n:</span><br><span class="line">    if S[m].start&gt;=S[k].finish:</span><br><span class="line">        A.add(S[m])</span><br><span class="line">        k = m</span><br><span class="line">return A</span><br></pre></td></tr></table></figure>
+<h2 id="python-代码"><a href="#python-代码" class="headerlink" title="python 代码"></a>python 代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Activity</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, start, finish)</span>:</span></span><br><span class="line">        self.start = start</span><br><span class="line">        self.finish = finish</span><br><span class="line">    </span><br><span class="line">S = [</span><br><span class="line">    Activity(<span class="number">0</span>,<span class="number">6</span>),</span><br><span class="line">    Activity(<span class="number">1</span>,<span class="number">4</span>),</span><br><span class="line">    Activity(<span class="number">3</span>,<span class="number">5</span>),</span><br><span class="line">    Activity(<span class="number">3</span>,<span class="number">8</span>),</span><br><span class="line">    Activity(<span class="number">4</span>,<span class="number">7</span>),</span><br><span class="line">    Activity(<span class="number">5</span>,<span class="number">9</span>),</span><br><span class="line">    Activity(<span class="number">6</span>,<span class="number">10</span>),</span><br><span class="line">    Activity(<span class="number">8</span>,<span class="number">11</span>),</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">intervalScheduling</span><span class="params">(S, start_time, finish_time)</span>:</span></span><br><span class="line"></span><br><span class="line">    S.sort(key= <span class="keyword">lambda</span> x : x.finish)</span><br><span class="line">    k = <span class="number">0</span></span><br><span class="line">    n = len(S)</span><br><span class="line">    <span class="keyword">while</span>(k&lt;len(S)):</span><br><span class="line">        s = S[k]</span><br><span class="line">        <span class="keyword">if</span> s.start&gt;start_time:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        k+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    A=[S[k]]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> range(k+<span class="number">1</span>, n):</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> S[m].start&gt;=S[k].finish <span class="keyword">and</span> S[m].finish&lt;=finish_time:</span><br><span class="line">            A.append(S[m])</span><br><span class="line">            k = m</span><br><span class="line">    <span class="keyword">return</span> A</span><br><span class="line"></span><br><span class="line">solution = intervalScheduling(S, <span class="number">0</span>, <span class="number">11</span>)</span><br><span class="line">print(len(solution))</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> solution:</span><br><span class="line">    print(s.start, s.finish)</span><br></pre></td></tr></table></figure>
+<h2 id="Minimize-Lateness"><a href="#Minimize-Lateness" class="headerlink" title="Minimize Lateness"></a>Minimize Lateness</h2><p>这个问题usyd的证明省略了非常多的前后知识, 如果要严格的证明需要很长的篇幅. 可以直接参考lecture slides里的内容.<br>与slides相同但阅读起来更完善的的资料:<a href="https://ocw.tudelft.nl/wp-content/uploads/Algoritmiek_Scheduling_to_Minimize_Maximum_Lateness.pdf" target="_blank" rel="noopener">TU Delft对于这个问题的讲义</a></p>
+<h3 id="一句话记住怎么做-1"><a href="#一句话记住怎么做-1" class="headerlink" title="一句话记住怎么做:"></a>一句话记住怎么做:</h3><p>直接按每一个task的deadline排列, 不要有idle time.</p>
+<ol>
+<li>首先, 显然因为每项任务没有开始时间的要求, optimal solution一定是没有idle time的. idle time的意思是闲着什么都不做的时间.</li>
+<li>inversion的意思是有两个task i和k, d_i &lt; d_k, 但是k却被放在了i的前面.</li>
+<li>Greedy的方法是让deadline前的task先完成, 所以没有inversion.</li>
+</ol>
+<p>问题: What is the difference in maximum lateness between two schedules<br>without inversions and without idle time?</p>
+<ul>
+<li>没有区别. </li>
+</ul>
+<p>假如所有的task的deadline都是确定的, 而且没有inversion, 那排列的方法就是唯一的, 最后的lateness也是唯一的.<br>只有当, 如果有两个task i和 j它们的deadline相等的时候, 无论i放前面还是j放前面, lateness都一样.</p>
+<ol start="4">
+<li>如果一个schedule里没有idle时间而且只有一对inversion, 那么这对inversion的task是连续的.</li>
+</ol>
+<p>问题: 如果交换这样一对task(原本是i, j, d_i &lt; d_j 但i放在了j后面), 会对lateness造成什么影响?</p>
+<ul>
+<li>subproblem一样, 总的finish时间是一样的. finish时间要么是f_i要么是f_j.</li>
+<li>结论:如果交换回来让 i在j前面, 会严格的减少或者保持现有的lateness.</li>
+</ul>
+<p>如何用Exchange Argument?<br>(slides里的证明)</p>
+<h2 id="Minimum-Spanning-Tree-MST"><a href="#Minimum-Spanning-Tree-MST" class="headerlink" title="Minimum Spanning Tree (MST)"></a>Minimum Spanning Tree (MST)</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Tree, spanning tree 和minimum spanning tree的定义层层递进</p>
+<ul>
+<li><p>Tree: 没有cycle的graph</p>
+</li>
+<li><p>Spanning Tree: 没有cycle而且连接graph里所有vertices的tree.</p>
+</li>
+<li><p>Minimum Spanning Tree: 所有可能的spanning tree里edge weight之和最小的spanning tree.</p>
+</li>
+</ul>
+<h3 id="一句话记住怎么做-2"><a href="#一句话记住怎么做-2" class="headerlink" title="一句话记住怎么做:"></a>一句话记住怎么做:</h3><ul>
+<li>如何找MST? 一个general的方法</li>
+</ul>
+<p>把所有edge按照weight从小到大来排列.<br>我们知道, 一个tree里最多只能有V-1个edge,否则就会有cycle, 不再是tree.</p>
+<p>开一个空集A来存MST里所需要的edge.</p>
+<p>从小到大来往A里加edge, 条件是加进来edge以后需要依旧要保持tree的特性, 不能产生cycle.</p>
+<p>(这一段的证明需参考CLRS)</p>
+<ul>
+<li>如何证明我们这样做是对的?</li>
+</ul>
+<p>(Greedy stays ahead方法)</p>
+<ol>
+<li>Invariant: Prior to each iteration, A is a subset of some minimum spanning tree</li>
+<li>Start from empty set. Empty set is certainly a subset of solution.</li>
+<li>During each iteration, we make sure the edge (u,v) added does not hurting the invariant that A is still a tree. (之后我会解释为什么prim和kruskal的方法可以make sure这一点)</li>
+<li>And since we sorted the edge by weight, the edge (u,v) adds smallest weight to the set A, so A’s total weight is minimized.</li>
+<li>Therefore invariant still holds after we add edge (u,v)</li>
+</ol>
+<h3 id="Prim的方法"><a href="#Prim的方法" class="headerlink" title="Prim的方法"></a>Prim的方法</h3><p>选定一个随意的vertex, 记为set V = {n_0}</p>
+<p>从这个vertex有的edge里找一个weight最小的edge扩展出去, 把这个edge另一端的vertex加进V里来.</p>
+<p>当前 V = {n_0, n_1}.从这两个vertex所有向外的edge里找一个weight最小的edge扩展出去…重复这个过程.</p>
+<ul>
+<li>为什么这种方法符合第三步(invariant that A is still a tree)呢?</li>
+</ul>
+<p>因为Prim的操作本质就像DFS/BFS一个图来创造树一样, 保持一个visited(也就是我们刚才说的V)来记录已经访问过的vertex.<br>而创造cycle需要有back edge, 也就是新加入的edge指向了已经visited的部分.<br>Prim的做法要求每次都拓展一个新的vertex, 所以不可能出现新加入的edge创造cycle的情况.</p>
+<ul>
+<li>一些定义:<br>假如一个graph G = (V, E)</li>
+</ul>
+<ol start="0">
+<li>Cut: a cut is a subset of vertex V. V里随意选的vertex集合.</li>
+<li>Cut set: the subset of edges with exactly one endpoint in S. 把这些随意选出来的vertex视作一个整体之后, “向外的”edge之和.</li>
+<li>Cycle: Set of edges of the form a-b, b-c, c-d, …, y-z, z-a. (需要至少有一个back edge, 从z指向a)</li>
+</ol>
+<p>(quiz会考的概念)</p>
+<ol start="3">
+<li>Cut property: 任意一个cutset里, weight最小的一个edge, 一定在MST里. (一句话概括Prim的方法)</li>
+<li>Cycle property: 任意一个cycle里, weight最大的一个edge, 一定不在MST里. </li>
+</ol>
+<h3 id="Kruskal的方法"><a href="#Kruskal的方法" class="headerlink" title="Kruskal的方法"></a>Kruskal的方法</h3><p>Kruskal的方法是对刚才介绍的general的Greedy方法更直白的表达.</p>
+<p>先sort所有的edge, 从小到大.</p>
+<p>开一个空集把最小的edge加进去. A = {e_0}.</p>
+<p>以从小到大的方法把edge加入A, 每一次检查是否会创造cycle, 不会创造的话就不加入.</p>
+<h3 id="线下Tutorial"><a href="#线下Tutorial" class="headerlink" title="线下Tutorial"></a>线下Tutorial</h3><p>walk though prim和Kruskal的方法. (final一定会考)</p>
+<h3 id="Prim的python实现"><a href="#Prim的python实现" class="headerlink" title="Prim的python实现"></a>Prim的python实现</h3><p>参考代码 (0修改, 如在作业中参考, 请务必reference!):</p>
+<p><a href="https://www.geeksforgeeks.org/prims-mst-for-adjacency-list-representation-greedy-algo-6/" target="_blank" rel="noopener">Geeks for Geeks</a><br><a href="https://codereview.stackexchange.com/questions/174946/prims-algorithm-using-heapq-module-in-python" target="_blank" rel="noopener">Stack Exchange</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> heappush, heappop</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span><span class="params">()</span>:</span> </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n)</span>:</span> </span><br><span class="line">        self.graph = defaultdict(list) </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addEdge</span><span class="params">(self, src, dest, weight)</span>:</span> </span><br><span class="line">        newNode = [dest, weight] </span><br><span class="line">        self.graph[src].insert(<span class="number">0</span>, newNode) </span><br><span class="line">        newNode = [src, weight] </span><br><span class="line">        self.graph[dest].insert(<span class="number">0</span>, newNode) </span><br><span class="line"></span><br><span class="line">graph = Graph(<span class="number">9</span>) </span><br><span class="line">graph.addEdge(<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>) </span><br><span class="line">graph.addEdge(<span class="number">0</span>, <span class="number">7</span>, <span class="number">8</span>) </span><br><span class="line">graph.addEdge(<span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>) </span><br><span class="line">graph.addEdge(<span class="number">1</span>, <span class="number">7</span>, <span class="number">11</span>) </span><br><span class="line">graph.addEdge(<span class="number">2</span>, <span class="number">3</span>, <span class="number">7</span>) </span><br><span class="line">graph.addEdge(<span class="number">2</span>, <span class="number">8</span>, <span class="number">2</span>) </span><br><span class="line">graph.addEdge(<span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>) </span><br><span class="line">graph.addEdge(<span class="number">3</span>, <span class="number">4</span>, <span class="number">9</span>) </span><br><span class="line">graph.addEdge(<span class="number">3</span>, <span class="number">5</span>, <span class="number">14</span>) </span><br><span class="line">graph.addEdge(<span class="number">4</span>, <span class="number">5</span>, <span class="number">10</span>) </span><br><span class="line">graph.addEdge(<span class="number">5</span>, <span class="number">6</span>, <span class="number">2</span>) </span><br><span class="line">graph.addEdge(<span class="number">6</span>, <span class="number">7</span>, <span class="number">1</span>) </span><br><span class="line">graph.addEdge(<span class="number">6</span>, <span class="number">8</span>, <span class="number">6</span>) </span><br><span class="line">graph.addEdge(<span class="number">7</span>, <span class="number">8</span>, <span class="number">7</span>) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minimum_spanning_tree_cost</span><span class="params">(graph)</span>:</span></span><br><span class="line">    <span class="string">"""Return the sum of the costs of the edges in the minimum spanning</span></span><br><span class="line"><span class="string">    tree for the given graph, which must be a mapping from nodes to an</span></span><br><span class="line"><span class="string">    iterable of (neighbour, edge-cost) pairs.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    total = <span class="number">0</span>                   <span class="comment"># Total cost of edges in tree</span></span><br><span class="line">    explored = set()            <span class="comment"># Set of vertices in tree</span></span><br><span class="line">    start = list(graph.keys())[<span class="number">0</span>]   <span class="comment"># Arbitrary starting vertex</span></span><br><span class="line">    unexplored = [(<span class="number">0</span>, start)]   <span class="comment"># Unexplored edges ordered by cost</span></span><br><span class="line">    <span class="keyword">while</span> unexplored:</span><br><span class="line">        cost, winner = heappop(unexplored)</span><br><span class="line">        <span class="keyword">if</span> winner <span class="keyword">not</span> <span class="keyword">in</span> explored:</span><br><span class="line">            explored.add(winner)</span><br><span class="line">            total += cost</span><br><span class="line">            <span class="keyword">for</span> neighbour, cost <span class="keyword">in</span> graph[winner]:</span><br><span class="line">                <span class="keyword">if</span> neighbour <span class="keyword">not</span> <span class="keyword">in</span> explored:</span><br><span class="line">                    heappush(unexplored, (cost, neighbour))</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line">print(minimum_spanning_tree_cost(graph.graph)) <span class="comment"># 37</span></span><br></pre></td></tr></table></figure>
+<p>Kruskal的python实现涉及Union Find方法, 以后会在Union Find博客中放出.</p>
+<h2 id="单源最短路径之Dijkstra"><a href="#单源最短路径之Dijkstra" class="headerlink" title="单源最短路径之Dijkstra"></a>单源最短路径之Dijkstra</h2><p>对单源最短路径, 我们需要知道起点, 终点不重要. </p>
+<h3 id="一句话记住怎么做-未优化"><a href="#一句话记住怎么做-未优化" class="headerlink" title="一句话记住怎么做: (未优化)"></a>一句话记住怎么做: (未优化)</h3><ol>
+<li>把所有除了起点以外的vertex标记成infinite distance</li>
+<li>从起点开始, 每一次探索当前最小distance的vertex向外的边, 并将累积的和记下来.</li>
+<li>如果遇到已探索过的部分, 需要比较新的路径是否比已知路径更小并进行更新</li>
+</ol>
+<h3 id="python实现-未优化"><a href="#python实现-未优化" class="headerlink" title="python实现(未优化)"></a>python实现(未优化)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dijkstra</span><span class="params">(start, graph)</span>:</span></span><br><span class="line">        shortest_distance = &#123;&#125;</span><br><span class="line">        predecessor = &#123;&#125; <span class="comment">#用来记录path, 达到终点后可以一路trace回来.</span></span><br><span class="line">        unSeenNodes = graph</span><br><span class="line">        infinity= float(<span class="string">'inf'</span>) <span class="comment">#先设置成无限大</span></span><br><span class="line">        path = []</span><br><span class="line">        <span class="keyword">for</span> node <span class="keyword">in</span> unSeenNodes:</span><br><span class="line">            shortest_distance[node] = infinity</span><br><span class="line">        shortest_distance[start]= <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> unSeenNodes: <span class="comment">#以traverse完所有vertex为终点.</span></span><br><span class="line">            minNode = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">#先找当前distance值最小的vertex来探索</span></span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> unSeenNodes: <span class="comment">#这一步可以优化的.</span></span><br><span class="line">                <span class="keyword">if</span> minNode==<span class="keyword">None</span>:</span><br><span class="line">                    minNode = node</span><br><span class="line">                <span class="keyword">elif</span> shortest_distance[node]&lt;shortest_distance[minNode]:</span><br><span class="line">                    minNode = node</span><br><span class="line"></span><br><span class="line">            <span class="comment">#找到了这个vertex, 探索其邻居</span></span><br><span class="line">            <span class="keyword">for</span> neighbour <span class="keyword">in</span> graph[minNode].keys():</span><br><span class="line">                weight = graph[minNode][neighbour]</span><br><span class="line">                <span class="keyword">if</span> shortest_distance[neighbour] &gt; weight + shortest_distance[minNode]: </span><br><span class="line">                    <span class="comment">#如果邻居是已经探索过的, 比较其已知distance和更新的distance, 取更小值.</span></span><br><span class="line">                    predecessor[neighbour] = minNode</span><br><span class="line">                    shortest_distance[neighbour] = weight + shortest_distance[minNode]</span><br><span class="line">            unSeenNodes.pop(minNode)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> shortest_distance</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/2123-week2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -338,9 +615,9 @@
 <p>在这之前, 先写一个helper function <code>print_linkedlist(head)</code>来帮忙检验. 我们默认<code>print_linkedlist</code>是时间O(n)空间O(1)的.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_linkedlist</span><span class="params">(head)</span>:</span></span><br><span class="line">    node = head</span><br><span class="line">    <span class="keyword">while</span>(node):</span><br><span class="line">        print(node.value) <span class="comment">#traversed</span></span><br><span class="line">        node = node.next</span><br></pre></td></tr></table></figure>
 <p><strong>Iterasive method</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    current = head</span><br><span class="line">    prev = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current):</span><br><span class="line">        </span><br><span class="line">        curr_next = current.next <span class="comment">#先存next, 下一步要走的点</span></span><br><span class="line">        current.next = prev <span class="comment"># **改变当前点的next位置. 反转的一步!**</span></span><br><span class="line">        prev = current <span class="comment">#更新prev称为当前点. </span></span><br><span class="line">        current = curr_next <span class="comment">#更新当前点为next, 下一步要走的点.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#理解视频: https://www.youtube.com/watch?v=sYcOK51hl-A</span></span><br><span class="line"></span><br><span class="line">    old_last_node = prev</span><br><span class="line">    <span class="keyword">return</span> old_last_node</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    current = head</span><br><span class="line">    prev = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current):</span><br><span class="line">        </span><br><span class="line">        curr_next = current.next <span class="comment">#先存next, 下一步要走的点</span></span><br><span class="line">        current.next = prev <span class="comment"># **改变当前点的next位置. 反转的一步!**</span></span><br><span class="line">        prev = current <span class="comment">#更新prev称为当前点. </span></span><br><span class="line">        current = curr_next <span class="comment">#更新当前点为next, 下一步要走的点.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#理解视频: https://www.youtube.com/watch?v=sYcOK51hl-A</span></span><br><span class="line"></span><br><span class="line">    old_last_node = prev</span><br><span class="line">    <span class="keyword">return</span> old_last_node</span><br><span class="line"></span><br><span class="line">print_linkedlist(reverseList(head))</span><br></pre></td></tr></table></figure>
 <p><strong>Recursive method</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> head==<span class="keyword">None</span> <span class="keyword">or</span> head.next==<span class="keyword">None</span>:</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    old_second = self.reverseList(head.next)</span><br><span class="line">    head.next.next = head</span><br><span class="line">    head.next=<span class="keyword">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> old_second</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span><span class="params">(head)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    return the new head with the reversed linkedlist</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> head==<span class="keyword">None</span> <span class="keyword">or</span> head.next==<span class="keyword">None</span>:</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    old_second = self.reverseList(head.next)</span><br><span class="line">    head.next.next = head</span><br><span class="line">    head.next=<span class="keyword">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> old_second</span><br><span class="line"></span><br><span class="line">print_linkedlist(reverseList(head))</span><br></pre></td></tr></table></figure>
 <ul>
 <li>Design an algorithm that uses O(sqrt(n)) extra space. </li>
 </ul>
@@ -353,9 +630,9 @@
 <ul>
 <li>recursive method(推荐)</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(n)</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    s = []</span><br><span class="line">    v = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>)] </span><br><span class="line">    <span class="comment"># 我们不用index 0的位置, 因为题目要求permute从1到n</span></span><br><span class="line">    <span class="comment"># 1 based index</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(l,s,v,index)</span>:</span></span><br><span class="line">        <span class="comment">#start is for the beginning position</span></span><br><span class="line">        <span class="keyword">if</span> index==n+<span class="number">1</span>:</span><br><span class="line">            l.append(s[:]) <span class="comment">#记录当前组合</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> v[i]==<span class="number">0</span>:</span><br><span class="line">                    s.append(i)</span><br><span class="line">                    v[i]=<span class="number">1</span></span><br><span class="line">                    dfs(l,s,v,index+<span class="number">1</span>)</span><br><span class="line">                    v[i]=<span class="number">0</span></span><br><span class="line">                    s.pop() <span class="comment">#回溯操作</span></span><br><span class="line">    dfs(l,s,v,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line">print(permute(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    :type n: int</span></span><br><span class="line"><span class="string">    :rtype: List[List[int]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return the list contains each lists of permutation</span></span><br><span class="line"><span class="string">    from &#123;1,2,..n&#125;</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    l = []</span><br><span class="line">    s = []</span><br><span class="line">    v = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>)] </span><br><span class="line">    <span class="comment"># 我们不用index 0的位置, 因为题目要求permute从1到n</span></span><br><span class="line">    <span class="comment"># 1 based index</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(l,s,v,index)</span>:</span></span><br><span class="line">        <span class="comment">#start is for the beginning position</span></span><br><span class="line">        <span class="keyword">if</span> index==n+<span class="number">1</span>:</span><br><span class="line">            l.append(s[:]) <span class="comment">#记录当前组合</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> v[i]==<span class="number">0</span>:</span><br><span class="line">                    s.append(i)</span><br><span class="line">                    v[i]=<span class="number">1</span></span><br><span class="line">                    dfs(l,s,v,index+<span class="number">1</span>)</span><br><span class="line">                    v[i]=<span class="number">0</span></span><br><span class="line">                    s.pop() <span class="comment">#回溯操作</span></span><br><span class="line">    dfs(l,s,v,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line">print(permute(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
 <ul>
-<li>iterative method(Heap’s algorithm)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute_iterative_heap_s_algorithm</span><span class="params">(n)</span>:</span></span><br><span class="line">    </span><br><span class="line">    c = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line">    A = [i+<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    res= [A[:]]</span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        <span class="keyword">if</span>  c[i] &lt; i:</span><br><span class="line">            <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">                A[<span class="number">0</span>],A[i] = A[i], A[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                A[c[i]], A[i] = A[i],A[c[i]]</span><br><span class="line">            res.append(A[:])</span><br><span class="line">            c[i] += <span class="number">1</span></span><br><span class="line">            i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c[i] = <span class="number">0</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure></li>
+<li>iterative method(Heap’s algorithm)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute_iterative_heap_s_algorithm</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type n: int</span></span><br><span class="line"><span class="string">    :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    c = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line">    A = [i+<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    res= [A[:]]</span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        <span class="keyword">if</span>  c[i] &lt; i:</span><br><span class="line">            <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">                A[<span class="number">0</span>],A[i] = A[i], A[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                A[c[i]], A[i] = A[i],A[c[i]]</span><br><span class="line">            res.append(A[:])</span><br><span class="line">            c[i] += <span class="number">1</span></span><br><span class="line">            i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c[i] = <span class="number">0</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -498,8 +775,7 @@
       
         
           
-            <h2 id="Week2-Graph"><a href="#Week2-Graph" class="headerlink" title="Week2 Graph"></a>Week2 Graph</h2><p><strong>学完并熟练掌握INFO1105/数据结构的同学可以跳过这篇.</strong></p>
-<p>这周的定义比较多一些</p>
+            <h2 id="Week2-Graph"><a href="#Week2-Graph" class="headerlink" title="Week2 Graph"></a>Week2 Graph</h2><p>这周的定义比较多一些</p>
 <h2 id="课程梳理"><a href="#课程梳理" class="headerlink" title="课程梳理"></a>课程梳理</h2><h3 id="名词梳理"><a href="#名词梳理" class="headerlink" title="名词梳理"></a>名词梳理</h3><ul>
 <li><p><code>V</code>: <code>Node/Vertices</code> 点</p>
 </li>
@@ -614,8 +890,6 @@
 <li><p>DFS和BFS的优势和劣势</p>
 </li>
 </ul>
-<p>Find connected components<br>Minimum Spanning Tree</p>
-<p>Shortest Distance: Dijkstra, Floyd-Warshall</p>
 
           
         
@@ -1403,7 +1677,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1414,7 +1688,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1425,7 +1699,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
